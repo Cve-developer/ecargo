@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-header text-white" style="background-color: #ffc107;">
+                        <h4 class="card-title mb-0 text-center">Truck Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">First Name</th>
+                                    <td>{{ member.first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Middle Name</th>
+                                    <td>{{ member.middle_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Last Name</th>
+                                    <td>{{ member.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td>{{ member.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone</th>
+                                    <td>{{ member.phone|slice:"0:2" }} - {{ member.phone|slice:"2:" }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Function</th>
+                                    <td>{{ member.function }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-2">
+                        <a class="btn btn-primary me-2" href="{% url 'update-member' member.id %}">Update</a>
+                            <a class="btn btn-danger" href="{% url 'delete-member' member.id %}">Delete</a>
+                            <a class="btn btn-secondary" href="{% url 'all-members' %}">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <body>
+        <br>
+        <div class="container opacity-100 border border-primary rounded shadow-md w-50 p-2 form-layout" style="background-color: #cccddd;; font-weight: bold;">
+            <h3 class="text-center"> Register a new account</h3>
+            <hr class="border border-primary opacity-100">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{ registerform|crispy }}
+                <br>
+                <button type="submit" class="btn btn-primary w-100 btn-block p-2">Login</button>
+            </form>
+            <br>
+            <div class="text-center">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+    </div>
+</body>
+{% endblock %}

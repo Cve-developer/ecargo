@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Update Truck</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="day">Day</label></b>
+                                    <input type="text" class="form-control" name="day" value="{{ truck.day }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="air_line_code">Air Line Code</label></b>
+                                    <input type="text" class="form-control" name="air_line_code" value="{{ truck.air_line_code }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="flight_number">Flight Number</label></b>
+                                    <input type="text" class="form-control" name="flight_number" value="{{ truck.flight_number }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="departure_time">Departure Time</label></b>
+                                    <input type="text" class="form-control" name="departure_time" value="{{ truck.departure_time|time:'H:i' }}" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="distance">Distance</label></b>
+                                    <input type="text" class="form-control" name="distance" value="{{ truck.distance }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="travel_time">Travel Time</label></b>
+                                    <input type="text" class="form-control" name="travel_time" value="{{ truck.travel_time|time:'H:i' }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="origin">Origin</label></b>
+                                    <input type="text" class="form-control" name="origin" value="{{ truck.origin }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="destination">Destination</label></b>    
+                                    <input type="text" class="form-control" name="destination" value="{{ truck.destination }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="operator">Operator</label></b>
+                                    <select name="operator" class="form-control">
+                                        <option value="Breogan" {% if truck.operator == "Breogan" %}selected{% endif %}>Breogan</option>
+                                        <option value="DHL" {% if truck.operator == "DHL" %}selected{% endif %}>DHL</option>
+                                        <option value="Hartman" {% if truck.operator == "Hartman" %}selected{% endif %}>Hartman</option>
+                                        <option value="De Rijk" {% if truck.operator == "De Rijk" %}selected{% endif %}>De Rijk</option>
+                                        <option value="Haarlemmermeer" {% if truck.operator == "Haarlemmermeer" %}selected{% endif %}>Haarlemmermeer</option>
+                                        <option value="Georgi" {% if truck.operator == "Georgi" %}selected{% endif %}>Georgi</option>
+                                        <option value="KCS" {% if truck.operator == "KCS" %}selected{% endif %}>KCS</option> 
+                                        <option value="Prevost" {% if truck.operator == "Prevost" %}selected{% endif %}>Prevost</option>
+                                        <option value="Taj" {% if truck.operator == "Taj" %}selected{% endif %}>Taj</option>
+                                        <option value="Transdanubia" {% if truck.operator == "Transdanubia" %}selected{% endif %}>Transdanubia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="status">Status</label></b>
+                                    <select name="status" class="form-control">
+                                        <option value="Active" {% if truck.status == "Active" %}selected{% endif %}>Active</option>
+                                        <option value="Inactive" {% if truck.status == "Inactive" %}selected{% endif %}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                <a href="{% url 'all-trucks' %}" class="btn btn-secondary btn-block">Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

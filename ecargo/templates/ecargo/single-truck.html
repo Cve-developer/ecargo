@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-header text-white" style="background-color: #ffc107;">
+                        <h4 class="card-title mb-0 text-center">Truck Details</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Day</th>
+                                    <td>{{ truck.day }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Air Line Code</th>
+                                    <td>{{ truck.air_line_code }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Flight Number</th>
+                                    <td>{{ truck.flight_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Departure Time</th>
+                                    <td>{{ truck.departure_time|time:"H:i" }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Distance</th>
+                                    <td>{{ truck.distance }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Travel Time</th>
+                                    <td>{{ truck.travel_time }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Origin</th>
+                                    <td>{{ truck.origin }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Destination</th>
+                                    <td>{{ truck.destination }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Operator</th>
+                                    <td>{{ truck.operator }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td>{{ truck.status }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-2">
+                            <a class="btn btn-primary me-2" href="{% url 'update-truck' truck.id %}">Update</a>
+                            <a class="btn btn-danger" href="{% url 'delete-truck' truck.id %}">Delete</a>
+                            <a class="btn btn-secondary" href="{% url 'all-trucks' %}">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

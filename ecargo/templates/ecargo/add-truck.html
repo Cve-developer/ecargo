@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="margin-top: 20px; margin-bottom: 20px;" class="container w-50">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title text-center">Add a new truck</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <b><label for="day" class="col-form-label col-form-label-sm">Day</label></b>
+                        <select name="day" class="form-control form-control-sm w-25" required>
+                            <option value="Select">Select</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b><label for="air_line_code" class="col-form-label col-form-label-sm">Air Line Code</label></b>
+                                <select name="air_line_code" class="form-control form-control-sm w-50" required>
+                                    <option value="Select">Select</option>
+                                    <option value="AF">AF</option>
+                                    <option value="DL">DL</option>
+                                    <option value="KL">KL</option>
+                                    <option value="MP">MP</option>
+                                    <option value="XC">XC</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <b><label for="flight_number" class="col-form-label col-form-label-sm">Flight Number</label></b>
+                                <input type="number" class="form-control form-control-sm" name="flight_number" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b><label for="id_departure_time" class="col-form-label col-form-label-sm">Departure Time</label></b>
+                                <input 
+                                    type="text" 
+                                    id="id_departure_time" 
+                                    class="form-control form-control-sm" 
+                                    name="departure_time" 
+                                    required 
+                                    value="{{ form.departure_time.value|date:'H:i'|default:'' }}">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="origin" class="col-form-label col-form-label-sm"><b>Origin</b></label>
+                                <input 
+                                    type="text" 
+                                    id="origin" 
+                                    name="origin" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter origin (e.g., Amsterdam)" 
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="destination" class="col-form-label col-form-label-sm"><b>Destination</b></label>
+                                <input 
+                                    type="text" 
+                                    id="destination" 
+                                    name="destination" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter destination (e.g., Brussels)" 
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="row">
+                            <!-- Distance Field -->
+                            <div class="col-md-6">
+                                <label for="id_distance" class="col-form-label col-form-label-sm"><b>Distance (km):</b></label>
+                            <input 
+                                    type="number" 
+                                    step="0.1" 
+                                    id="id_distance" 
+                                    class="form-control form-control-sm" 
+                                    name="distance" 
+                                    placeholder="Enter distance in kilometers" 
+                                    required 
+                                    value="{{ form.distance.value|default:'' }}"> 
+                            </div>
+                    
+                            <!-- Travel Time Field -->
+                            <div class="col-md-6">
+                                <label for="id_travel_time" class="col-form-label col-form-label-sm"><b>Travel Time (HH:MM):</b></label>
+                                <input 
+                                    type="text" 
+                                    id="id_travel_time" 
+                                    class="form-control form-control-sm" 
+                                    name="travel_time" 
+                                    required 
+                                    value="{{ form.travel_time.value|time:'H:i'|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!--<div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b><label for="origin" class="col-form-label col-form-label-sm">Origin</label></b>
+                                <input type="text" class="form-control form-control-sm" name="origin" required>
+                            </div>
+                            <div class="col-md-6">
+                                <b><label for="destination" class="col-form-label col-form-label-sm">Destination</label></b>
+                                <input type="text" class="form-control form-control-sm" name="destination" required>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <b><label for="operator" class="col-form-label col-form-label-sm">Operator</label></b>
+                                <select name="operator" class="form-control form-control-sm" required>
+                                    <option value="Select">Select</option>
+                                    <option value="Breogan">Breogan</option>
+                                    <option value="DHL">DHL</option>
+                                    <option value="Hartman">Hartman</option>
+                                    <option value="De Rijk">De Rijk</option>
+                                    <option value="Haarlemmermeer">Haarlemmermeer</option>
+                                    <option value="Georgi">Georgi</option>
+                                    <option value="KCS">KCS</option>
+                                    <option value="Prevost">Prevost</option>
+                                    <option value="Taj">Taj</option>
+                                    <option value="Transdanubia">Transdanubia</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <b><label for="status" class="col-form-label col-form-label-sm">Status</label></b>
+                                <select name="status" class="form-control form-control-sm" required>
+                                    <option value="Select">Select</option>
+                                    <!--<option value="Active">Active</option>-->
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">Add Truck</button>
+                    <a href="{% url 'all-trucks' %}" class="btn btn-secondary btn-block">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

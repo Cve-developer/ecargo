@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-3">
+        <div class="container">
+            <h5 class="text-decoration-underline text-center"><strong>All Trucks</strong></h5>
+        </div>
+        <!--<hr class="opacity-100 w-100"> -->
+        <!-- Search Bar (Left) -->
+        <div class="col-md-6 w-50">
+            <form method="GET" class="form-inline">
+                <div class="input-group w-50">
+                    <input type="text" name="q" placeholder="Search trucks..." class="form-control form-control-sm border-secondary" value="{{ search_query }}" aria-label="Search trucks">
+                    <input type="hidden" name="day" value="{{ selected_day }}">
+                    <input type="hidden" name="truck_number" value="{{ selected_truck_number }}">
+                    <input type="hidden" name="destination" value="{{ selected_destination }}">
+                    <div class="input-group-append px-2">
+                        <button class="btn btn-secondary" type="submit">Search<i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+
+        <!-- Create Button (Right) -->
+        <div class="col-md-6 justify-content-end d-flex">
+            <a class="btn btn-outline-secondary" href="{% url 'add-truck' %}">
+                Create a new truck &nbsp; <i class="fa fa-plus-circle"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters and Sorting -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Day filter -->
+        <form method="GET" class="form-group mb-0">
+            <label for="day" class="mr-2">Select Day: </label>
+            <select name="day" id="day" class="form-control form-control-sm border-secondary" onchange="this.form.submit()">
+                <option value="All" {% if selected_day == 'All' %}selected{% endif %}>All Days</option>
+                <option value="Monday" {% if selected_day == 'Monday' %}selected{% endif %}>Monday</option>
+                <option value="Tuesday" {% if selected_day == 'Tuesday' %}selected{% endif %}>Tuesday</option>
+                <option value="Wednesday" {% if selected_day == 'Wednesday' %}selected{% endif %}>Wednesday</option>
+                <option value="Thursday" {% if selected_day == 'Thursday' %}selected{% endif %}>Thursday</option>
+                <option value="Friday" {% if selected_day == 'Friday' %}selected{% endif %}>Friday</option>
+                <option value="Saturday" {% if selected_day == 'Saturday' %}selected{% endif %}>Saturday</option>
+                <option value="Sunday" {% if selected_day == 'Sunday' %}selected{% endif %}>Sunday</option>
+            </select>
+            <input type="hidden" name="q" value="{{ search_query }}">
+            <input type="hidden" name="sort" value="{{ sort_order }}">
+            <input type="hidden" name="per_page" value="{{ per_page }}">
+        </form>
+
+        
+        
+        <!-- Sorting options for departure_time -->
+        <form method="GET" class="form-inline">
+            <span>Sort by Departure Time: </span>
+            <a href="?day={{ selected_day }}&q={{ search_query }}&sort=asc&per_page={{ per_page }}" class="btn btn-outline-secondary mx-1">Earliest First</a>
+            <a href="?day={{ selected_day }}&q={{ search_query }}&sort=desc&per_page={{ per_page }}" class="btn btn-outline-secondary">Latest First</a>
+        </form>
+    </div>
+
+    <!--<hr class="opacity-100"> -->
+    <!--<div class="container border border-primary"  style="text-align: center; margin: 0 auto"> -->
+        <br>
+        <!-- Display list of trucks -->
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr class="table-secondary">
+                    <th>Day</th>
+                    <th>Dep. Time</th>
+                    <th>Truck</th>
+                    <th>Origin</th>
+                    <th>destination</th>
+                    <th>Operator</th>
+                    <th>Distance</th>
+                    <th>Travel Time</th>
+                    
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for truck in trucks %}
+                {% if truck.status == 'Active' or truck.status == 'Inactive' %}
+                <tr>
+                    <td style="display: none">{{ forloop.counter }}</td>
+                    {% if selected_day == 'All' or truck.day == selected_day %}
+                    <td style="background-color: {% if truck.day == 'Monday' %}lightgreen{% elif truck.day == 'Tuesday' %}lightblue{% elif truck.day == 'Wednesday' %}lightyellow{% elif truck.day == 'Thursday' %}lightorange{% elif truck.day == 'Friday' %}lightred{% elif truck.day == 'Saturday' %}lightpurple{% elif truck.day == 'Sunday' %}lightpink{% endif %}">{{ truck.day }}</td>
+                    <td>{{ truck.departure_time|time:"H:i" }} lt</td>
+                    <td>{{ truck.air_line_code }} - {{ truck.flight_number }}</td>
+                    
+                    <td>{{ truck.origin }}</td>
+                    <td>{{ truck.destination }}</td>
+                    <td>{{ truck.operator }}</td>
+                    <td>{{ truck.distance }} KM</td>
+                    <td>
+                        {% with hours=truck.travel_time|date:"H"|floatformat:0 %}
+                            {% with minutes=truck.travel_time|date:"i"|floatformat:0 %}
+                                {{ hours }} Hrs {{ minutes }} Min
+                            {% endwith %}
+                        {% endwith %}
+                    </td>
+                    
+                    <td class="text-center text-white" style="background-color: {% if truck.status == 'Active' %}green{% else %}gray{% endif %}">{{ truck.status }}</td>
+                    <td class="text-center bg-primary td-small">
+                        <a href="{% url 'single-truck' truck.id %}" class="btn btn-warning btn-sm">View</a>
+                        </td>                    
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- Pagination -->
+    <div class="row">
+        <div class="col-md-12">
+        {% if truck %}
+        <a
+            href="{% url 'singletruck' truck.id %}"
+            class="btn btn-center btn-primary"
+            >View</a
+        >
+        {% endif %}
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-muted">Showing {{ trucks.start_index }} to {{ trucks.end_index }} of {{ trucks.paginator.count }} trucks.</p>
+            </div>
+            <div class="col-md-6">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        {% if trucks.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ trucks.previous_page_number }}&q={{ search_query }}&day={{ selected_day }}">Previous</a>
+                        </li>
+                        {% endif %}
+                        {% for i in trucks.paginator.page_range %}
+                        {% if trucks.number == i %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ i }}&q={{ search_query }}&day={{ selected_day }}">{{ i }} <span class="sr-only">
+                            </span></a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}&q={{ search_query }}&day={{ selected_day }}">{{ i }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if trucks.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ trucks.next_page_number }}&q={{ search_query }}&day={{ selected_day }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

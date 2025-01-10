@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="margin-top: 20px; margin-bottom: 20px;" class="container w-50">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title text-center">Add a new Member</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="first_name" class="col-form-label col-form-label-sm"><b>First Name</b></label>
+                                <input 
+                                    type="text" 
+                                    id="first_name" 
+                                    name="first_name" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter First Name" 
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="middle_name" class="col-form-label col-form-label-sm"><b>Middle Name</b></label>
+                                <input 
+                                    type="text" 
+                                    id="middle_name" 
+                                    name="middle_name" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter Middle Name" 
+                                    >
+                            </div>
+                            
+
+                            <div class="col-md-6">
+                                <label for="last_name" class="col-form-label col-form-label-sm"><b>Last Name</b></label>
+                                <input 
+                                    type="text" 
+                                    id="last_name" 
+                                    name="last_name" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter Last Name" 
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="email" class="col-form-label col-form-label-sm"><b>Email</b></label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter Email" 
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="col-form-label col-form-label-sm"><b>Phone</b></label>
+                                <input 
+                                    type="text" 
+                                    id="phone" 
+                                    name="phone" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter Phone" 
+                                    required>
+                            </div>
+                        </div>
+                            <div class="col-md-6">
+                                <label for="function" class="col-form-label col-form-label-sm"><b>Function</b></label>
+                                <input 
+                                    type="text" 
+                                    id="function" 
+                                    name="function" 
+                                    class="form-control form-control-sm" 
+                                    placeholder="Enter Function" 
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Add Member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title text-center">Update Member</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="first_name">First Name</label></b>
+                                    <input type="text" class="form-control" name="first_name" value="{{ member.first_name }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="middle_name">Middle Name</label></b>
+                                    <input type="text" class="form-control" name="middle_name" value="{{ member.middle_name }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="last_name">Last Name</label></b>
+                                    <input type="text" class="form-control" name="last_name" value="{{ member.last_name }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="email">Email</label></b>
+                                    <input type="text" class="form-control" name="email" value="{{ member.email }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="phone">Phone</label></b>
+                                    <input type="text" class="form-control" name="phone" value="{{ member.phone }}">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <b><label for="function">Function</label></b>
+                                    <select name="function" class="form-control">
+                                        <option value="Manager" {% if member.function == "Manager" %}selected{% endif %}>Manager</option>
+                                        <option value="Team Coordinator" {% if member.function == "Team Coordinator" %}selected{% endif %}>Team Coordinator</option>
+                                        <option value="Team Member" {% if member.function == "Team Member" %}selected{% endif %}>Team Member</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-block">Update</button>
+                                <a href="{% url 'all-members' %}" class="btn btn-secondary btn-block">Back</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
